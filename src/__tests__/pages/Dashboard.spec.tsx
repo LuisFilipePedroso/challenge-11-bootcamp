@@ -92,6 +92,8 @@ describe('Dashboard', () => {
       timeout: 200,
     });
 
+    console.log(getByText('Ao molho'))
+
     expect(getByText('Ao molho')).toBeTruthy();
     expect(
       getByText(

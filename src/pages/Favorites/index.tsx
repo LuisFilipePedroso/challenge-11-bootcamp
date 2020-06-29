@@ -18,7 +18,7 @@ import {
   FoodPricing,
 } from './styles';
 
-interface Food {
+interface IFood {
   id: number;
   name: string;
   description: string;
@@ -28,11 +28,16 @@ interface Food {
 }
 
 const Favorites: React.FC = () => {
-  const [favorites, setFavorites] = useState<Food[]>([]);
+  const [favorites, setFavorites] = useState<IFood[]>([]);
 
   useEffect(() => {
     async function loadFavorites(): Promise<void> {
       // Load favorite foods from api
+      const response = await api.get('favorites');
+      setFavorites(response.data.map((favorite: IFood) => ({
+        ...favorite,
+        formattedPrice: formatValue(favorite.price)
+      })));
     }
 
     loadFavorites();
